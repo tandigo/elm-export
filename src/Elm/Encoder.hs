@@ -70,11 +70,12 @@ instance HasEncoderRef ElmPrimitive where
   renderRef (ETuple2 x y) = do
     dx <- renderRef x
     dy <- renderRef y
-    return . parens $ "tuple2" <+> dx <+> dy
+    return . parens $ "\\(a,b) -> Json.Encode.list" <+> "[" <+> dx <+> "a," <+> dy <+> "b]"
   renderRef (EDict k v) = do
     dk <- renderRef k
     dv <- renderRef v
-    return . parens $ "dict" <+> dk <+> dv
+    return . parens $
+      "Json.Encode.object << List.map (\\(k,v) -> (k," <+> dv <+> "v)) << Dict.toList"
 
 toElmEncoderRefWith
   :: ElmType a
