@@ -77,7 +77,7 @@ instance HasDecoderRef ElmPrimitive where
   renderRef EInt = pure "int"
   renderRef EBool = pure "bool"
   renderRef EChar = pure "char"
-  renderRef EFloat = pure "float"
+  renderRef EFloat = pure "(oneOf [float, null (0/0)])"
   renderRef EString = pure "string"
 
 toElmDecoderRefWith
